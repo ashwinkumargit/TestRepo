@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Employee Directory</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: Segoe UI, Arial, sans-serif;
+    background: #f5f7fa;
+}
+
+header {
+    background: #0078d4;
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+.container {
+    max-width: 1200px;
+    margin: auto;
+    padding: 20px;
+}
+
+.search-box {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    font-size: 16px;
+}
+
+.employee-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.card {
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    transition: 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.card h3 {
+    color: #0078d4;
+    margin-top: 0;
+}
+
+.info {
+    margin: 8px 0;
+}
+
+.label {
+    font-weight: bold;
+}
+
+footer {
+    text-align: center;
+    padding: 20px;
+    color: #666;
+}
+</style>
+
+</head>
+<body>
+
+<header>
+    <h1>Employee Directory</h1>
+</header>
+
+<div class="container">
+
+    <input
+        type="text"
+        id="searchInput"
+        class="search-box"
+        placeholder="Search by name, title, location..."
+        onkeyup="searchEmployees()">
+
+    <div id="employeeGrid" class="employee-grid">
+    </div>
+
+</div>
+
+<footer>
+    Employee Directory Portal
+</footer>
+
+<script>
+
+const employees = [
+    {
+        name: "Sateesh Kumar Reddy",
+        title: "Contractor",
+        location: "Bangalore",
+        manager: "Karthik Sundaram",
+        department: "Automation",
+        email: "sateesh@company.com"
+    },
+    {
+        name: "John Smith",
+        title: "Software Engineer",
+        location: "Hyderabad",
+        manager: "Jane Doe",
+        department: "IT",
+        email: "john@company.com"
+    },
+    {
+        name: "Priya Sharma",
+        title: "Business Analyst",
+        location: "Chennai",
+        manager: "Robert King",
+        department: "Operations",
+        email: "priya@company.com"
+    }
+];
+
+function loadEmployees(employeeList) {
+
+    const container =
+        document.getElementById("employeeGrid");
+
+    container.innerHTML = "";
+
+    employeeList.forEach(emp => {
+
+        container.innerHTML += `
+            <div class="card">
+                <h3>${emp.name}</h3>
+
+                <div class="info">
+                    <span class="label">Job Title:</span>
+                    ${emp.title}
+                </div>
+
+                <div class="info">
+                    <span class="label">Location:</span>
+                    ${emp.location}
+                </div>
+
+                <div class="info">
+                    <span class="label">Manager:</span>
+                    ${emp.manager}
+                </div>
+
+                <div class="info">
+                    <span class="label">Department:</span>
+                    ${emp.department}
+                </div>
+
+                <div class="info">
+                    <span class="label">Email:</span>
+                    ${emp.email}
+                </div>
+            </div>
+        `;
+    });
+}
+
+function searchEmployees() {
+
+    const searchText =
+        document.getElementById("searchInput")
+        .value.toLowerCase();
+
+    const filtered = employees.filter(emp =>
+        Object.values(emp)
+            .join(" ")
+            .toLowerCase()
+            .includes(searchText)
+    );
+
+    loadEmployees(filtered);
+}
+
+loadEmployees(employees);
+
+</script>
+
+</body>
+</html>
